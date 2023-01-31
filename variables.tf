@@ -5,8 +5,9 @@ module "common-tags" {
   environment = var.environment
   project     = var.project
 
-  # My local tag
-  tags = var.tags
+  #empty tags
+    tags = {} 
+  
 }
 
 locals {
