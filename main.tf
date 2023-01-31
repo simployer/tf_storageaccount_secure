@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "this" {
   resource_group_name             = var.resource_group_name
   account_tier                    = "Standard"
   account_kind                    = "StorageV2"
-  account_replication_type        = "ZRS"
+  account_replication_type        = "GRS"
   access_tier                     = "Hot"
   allow_nested_items_to_be_public = false
   shared_access_key_enabled       = false
