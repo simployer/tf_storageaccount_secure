@@ -1,25 +1,25 @@
-variable "environment" {
+variable "ENVIRONMENT" {
   description = "development environment"
   type        = string
 }
 
-variable "project" {
+variable "PROJECT" {
   description = "project"
   type        = string
 }
-variable "name" {
+variable "NAME" {
   description = "Storage account resource name"
   type        = string
 }
 
-variable "location" {
+variable "LOCATION" {
   description = "Storage account location"
   type        = string
   default     = "West Europe"
 }
 
 
-variable "resource_group_name" {
+variable "RESOURCE_GROUP_NAME" {
   description = "Storage account group name"
   type        = string
 }

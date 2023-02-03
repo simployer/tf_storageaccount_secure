@@ -1,8 +1,8 @@
 resource "azurerm_storage_account" "this" {
 
-  name                            = var.name
-  location                        = var.location
-  resource_group_name             = var.resource_group_name
+  name                            = var.NAME
+  location                        = var.LOCATION
+  resource_group_name             = var.RESOURCE_GROUP_NAME
   account_tier                    = "Standard"
   account_kind                    = "StorageV2"
   account_replication_type        = "GRS"
@@ -39,8 +39,7 @@ resource "azurerm_storage_account" "this" {
 }
 
 resource "azurerm_storage_account_network_rules" "vnet" {
-  storage_account_name = azurerm_storage_account.this.name
-  resource_group_name  = azurerm_storage_account.this.resource_group_name
+  storage_account_id = azurerm_storage_account.this.id
   default_action       = "Deny"
   virtual_network_subnet_ids = module.common.buildsubnets
   ip_rules = module.common.internal_gateway_ips
