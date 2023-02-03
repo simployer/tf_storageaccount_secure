@@ -1,19 +1,3 @@
-module "common-tags" {
-  source = "git@bitbucket.org:simployer/common-tags.git"
-
-  # Mandatory variables
-  environment = var.environment
-  project     = var.project
-
-  #empty tags
-    tags = {} 
-  
-}
-
-locals {
-  tags = module.common-tags.tags
-}
-
 variable "environment" {
   description = "development environment"
   type        = string

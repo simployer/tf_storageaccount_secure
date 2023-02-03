@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "this" {
   }
   #merge tags with common tags
     tags = merge(
-        local.tags,
+        module.common.tags,
         {
         "type" = "terraformstate"
         }
@@ -38,3 +38,16 @@ resource "azurerm_storage_account" "this" {
 }
 }
 
+resource "azurerm_storage_account_network_rules" "vnet" {
+  storage_account_name = azurerm_storage_account.this.name
+  resource_group_name  = azurerm_storage_account.this.resource_group_name
+  default_action       = "Deny"
+  virtual_network_subnet_ids = module.common.buildsubnets
+  ip_rules = module.common.internal_gateway_ips
+}
+
+module "common" {
+  source = "git::http://simployer:simployer@gitserver.simployer.tech/terraform-modules-common.git"
+  project = var.PROJECT
+  environment = var.ENVIRONMENT
+}
