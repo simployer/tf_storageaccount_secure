@@ -1,8 +1,8 @@
 resource "azurerm_storage_account" "this" {
 
-  name                            = var.NAME
-  location                        = var.LOCATION
-  resource_group_name             = var.RESOURCE_GROUP_NAME
+  name                            = var.name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
   account_tier                    = "Standard"
   account_kind                    = "StorageV2"
   account_replication_type        = "GRS"
@@ -20,12 +20,7 @@ resource "azurerm_storage_account" "this" {
     ]
   }
   #merge tags with common tags
-    tags = merge(
-        module.common.tags,
-        {
-        "type" = "terraformstate"
-        }
-    )
+    tags = module.common.tags
   
  blob_properties {
     delete_retention_policy {
@@ -47,6 +42,13 @@ resource "azurerm_storage_account_network_rules" "vnet" {
 
 module "common" {
   source = "git::http://simployer:simployer@gitserver.simployer.tech/terraform-modules-common.git"
-  project = var.PROJECT
-  environment = var.ENVIRONMENT
+  project = var.project
+  environment = var.environment
+}
+
+resource "azurerm_role_assignment" "rbac" {
+  for_each = toset(var.principal_ids)
+  principal_id = each.key
+  role_definition_name = "Storage Blob Data Contributor"
+  scope        = azurerm_storage_account.this.id
 }
