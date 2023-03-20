@@ -52,3 +52,10 @@ resource "azurerm_role_assignment" "rbac" {
   role_definition_name = "Storage Blob Data Contributor"
   scope        = azurerm_storage_account.this.id
 }
+
+resource "azurerm_role_assignment" "rbac" {
+  for_each = toset(var.principal_ids)
+  principal_id = each.key
+  role_definition_name = "Storage Blob Data Owner"
+  scope        = azurerm_storage_account.this.id
+}
