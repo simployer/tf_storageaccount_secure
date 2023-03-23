@@ -41,7 +41,7 @@ resource "azurerm_storage_account_network_rules" "vnet" {
 }
 
 module "common" {
-  source = "git::http://simployer:simployer@gitserver.simployer.tech/terraform-modules-common.git"
+  source = "git@github.com:simployer/terraform-modules-common.git"
   project = var.project
   environment = var.environment
 }
